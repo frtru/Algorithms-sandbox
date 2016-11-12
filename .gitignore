@@ -1,1 +1,6 @@
+#Eclipse workspace files
+.metadata/
+.recommenders/
+
+# Output directory
 /bin/
