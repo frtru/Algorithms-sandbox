@@ -5,6 +5,7 @@ public enum Checkpoint {
 	NONE,
 	START,
 	END,
-	POTENTIAL_SOLUTION
+	POTENTIAL_SOLUTION,
+	SOLUTION
 
 }

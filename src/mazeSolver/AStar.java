@@ -7,15 +7,17 @@ import java.util.Random;
 //Application packages imports
 import core.Algo;
 import core.utils.Position;
+import javafx.scene.paint.Color;
 import maze.Maze;
 import maze.Node;
+import maze.entity.Type;
 
 public class AStar extends Algo{
-
 
 	@Override
 	public void init() {
 		m_heuristicWeight = 2;
+		m_currentNode = Maze.INSTANCE.getStartNode();
 	}
 
 	@Override
@@ -24,7 +26,10 @@ public class AStar extends Algo{
 /*		Maze.INSTANCE.getNodeAt(
 				m_rand.nextInt(m_mazeHeight), 
 				m_rand.nextInt(m_mazeWidth)).setCheckpoint(Checkpoint.POTENTIAL_SOLUTION);
-*/		return true;
+				
+*/		
+		
+		return true;
 	}
 
 	@Override
@@ -40,13 +45,15 @@ public class AStar extends Algo{
 	// Returns the cost of node n
 	private int getGScore(Node n) {
 		// TODO: Should return the length of the path when reaching node n
-		return 0;
+		// Or maybe just the distance with the start
+		return getDistanceBetweenNodes(n, Maze.INSTANCE.getStartNode());
+		//return 0;
 	}
 
 	// Returns the heuristic of node n
 	private int getHScore(Node n) {
 		// Return distance from n to end node
-		return getDistanceBetweenNodes(n,Maze.INSTANCE.getEndNode());
+		return getDistanceBetweenNodes(n, Maze.INSTANCE.getEndNode());
 	}
 	
 	private int getDistanceBetweenNodes(Node n1, Node n2) {

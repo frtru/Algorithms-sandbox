@@ -34,7 +34,7 @@ public class RenderableComponent{
 		}
 	}
 	
-	public void updateColorFromCheckpoint(Checkpoint a_checkpoint) {
+	public void updateFromCheckpoint(Checkpoint a_checkpoint) {
 		switch(a_checkpoint) {
 			case NONE:
 				// Could be either wall or floor
@@ -48,6 +48,9 @@ public class RenderableComponent{
 				break;
 			case POTENTIAL_SOLUTION:
 				m_fillColor = Color.BLUE;
+				break;
+			case SOLUTION:
+				m_fillColor = Color.AQUAMARINE;
 				break;				
 			default:
 				m_fillColor = Color.BLUEVIOLET; // For debugging purposes
@@ -62,6 +65,11 @@ public class RenderableComponent{
 			m_cachedRenderingPosition.getY(), 
 			Settings.NODE_WIDTH_PX,
 			Settings.NODE_HEIGHT_PX);
+	}
+	
+	// For debugging purposes
+	public void setColor(Color c) {
+		m_fillColor = c;
 	}
 	
 	private Position 	m_cachedRenderingPosition;
