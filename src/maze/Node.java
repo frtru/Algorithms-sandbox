@@ -34,8 +34,13 @@ public class Node {
 	public void setWestNeighbor(Node a_node) 	{ m_neighbors.put(Direction.IDS.get(Direction.WEST), a_node); }
 	public void setEastNeighbor(Node a_node) 	{ m_neighbors.put(Direction.IDS.get(Direction.EAST), a_node); }
 	
-	public void addFloorNeighbor(Node a_node) {
-		m_floorNeighbors.add(a_node);
+	public void updateFloorNeighbors() {
+		for (HashMap.Entry<Integer,Node> entry: m_neighbors.entrySet()) {
+			Node n = entry.getValue();
+			if (n.getType() == Type.FLOOR) {
+				m_floorNeighbors.add(n);
+			}
+		}
 	}
 	
 	public void setType(Type a_type) { 

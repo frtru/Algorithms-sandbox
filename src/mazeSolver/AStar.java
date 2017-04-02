@@ -7,7 +7,6 @@ import java.util.Random;
 //Application packages imports
 import core.Algo;
 import core.utils.Position;
-import javafx.scene.paint.Color;
 import maze.Maze;
 import maze.Node;
 import maze.entity.Type;
@@ -28,7 +27,6 @@ public class AStar extends Algo{
 				m_rand.nextInt(m_mazeWidth)).setCheckpoint(Checkpoint.POTENTIAL_SOLUTION);
 				
 */		
-		
 		return true;
 	}
 

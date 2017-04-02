@@ -56,6 +56,12 @@ public class DFS extends MazeGenerator{
 		for (int i=0; i < width; ++i ) {
 			for (int j=0; j < height; ++j) {
 				Node node = Maze.INSTANCE.getNodeAt(i, j);
+				
+				if (node.getType() == Type.FLOOR) {
+					node.updateFloorNeighbors();
+				}
+				
+				// Set wall types instead of unvisited/unknown types
 				if (node.getType() == Type.UNKNOWN) {
 					node.setType(Type.WALL);
 				}
