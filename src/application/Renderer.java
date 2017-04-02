@@ -19,6 +19,7 @@ public final class Renderer {
 		
 		m_isRendering 	= new SimpleBooleanProperty(false);
 		m_stepCompleted = new SimpleBooleanProperty(false);
+		m_fastForwardGen = Settings.FAST_FORWARD_GEN;
 		
 		m_stepCompleted.addListener(new ChangeListener<Boolean>() {
 
@@ -66,8 +67,16 @@ public final class Renderer {
 	
 	public void start() {
 		m_algo.init();
-		m_renderingLoop.start();
-		m_isRendering.set(true);
+		if (m_algo.compareTo(m_currentStory.first) &&
+			m_fastForwardGen) {
+				while(m_algo.next());
+				m_algo.end();
+				m_stepCompleted.set(true);
+		}
+		else {
+			m_renderingLoop.start();
+			m_isRendering.set(true);
+		}
 	}
 
 	public void pause() {
@@ -93,5 +102,7 @@ public final class Renderer {
     private AnimationTimer 			m_renderingLoop;
     private BooleanProperty 		m_isRendering;
     private BooleanProperty			m_stepCompleted;
+    
+    private boolean					m_fastForwardGen;
 	
 }
