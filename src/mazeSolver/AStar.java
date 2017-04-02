@@ -6,24 +6,16 @@ import java.util.Random;
 
 //Application packages imports
 import core.Algo;
+import core.utils.Position;
 import maze.Maze;
 import maze.Node;
-import maze.entity.Checkpoint;
 
 public class AStar extends Algo{
 
-	private class NodeData {
-		
-		
-		
-		private int m_f, m_g, m_h;
-	}
-	
+
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
-		m_mazeWidth  = Maze.INSTANCE.getWidth();
-		m_mazeHeight = Maze.INSTANCE.getHeight();		
+		m_heuristicWeight = 2;
 	}
 
 	@Override
@@ -41,11 +33,30 @@ public class AStar extends Algo{
 		
 	}
 	
+	private int	getFScore(Node n) {
+		return getGScore(n) + m_heuristicWeight*getHScore(n);
+	}
+	
+	// Returns the cost of node n
+	private int getGScore(Node n) {
+		// TODO: Should return the length of the path when reaching node n
+		return 0;
+	}
+
+	// Returns the heuristic of node n
+	private int getHScore(Node n) {
+		// Return distance from n to end node
+		return getDistanceBetweenNodes(n,Maze.INSTANCE.getEndNode());
+	}
+	
+	private int getDistanceBetweenNodes(Node n1, Node n2) {
+		Position p1 = n1.getPosition(), 
+				 p2 = n2.getPosition();
+		return Math.abs(p1.getX() - p2.getX()) + Math.abs(p1.getY() - p2.getY());
+	}
+	
 	Random 		m_rand 					= new Random();
 	Node 		m_currentNode 			= null;
 
-	int 		m_mazeWidth = 0; 
-	int			m_mazeHeight = 0;
-	
-	
+	int 		m_heuristicWeight; 
 }
