@@ -28,7 +28,7 @@ public class DFS extends MazeGenerator{
 			m_currentNode.setType(Type.FLOOR);
 			m_visitedNodes.push(m_currentNode);		
 
-			Integer randomDirection = (Integer) m_nodeBuffer.keySet().toArray()[m_rand.nextInt(m_nodeBuffer.size())];
+			Integer randomDirection = getRandomDirection();
 			Node neighbor = m_nodeBuffer.get(randomDirection);			
 
 			if (!isVisited(neighbor)) {
@@ -43,16 +43,8 @@ public class DFS extends MazeGenerator{
 			}				
 			hasNextIteration = true;
 		}
-		else if (!m_visitedNodes.isEmpty()) { // Backtrack to most recent unvisited node into neighbors
-			Node nextBranchNode = null;
-			do {
-				nextBranchNode = m_visitedNodes.pop();
-				m_nodeBuffer = getNextUnvisitedNeighbors(nextBranchNode);				
-			} while(m_nodeBuffer.isEmpty() && !m_visitedNodes.isEmpty()); 
-			
-			if (nextBranchNode != null) {
-				m_currentNode = nextBranchNode;
-			}
+		else if (!m_visitedNodes.isEmpty()) {
+			backtrackUnvisitedNodes();
 			hasNextIteration = true;
 		}
 		return hasNextIteration;
@@ -105,6 +97,23 @@ public class DFS extends MazeGenerator{
 	}
 	
 	private boolean isVisited(Node node) { return (node.getType() == Type.FLOOR); }
+	
+	private Integer getRandomDirection() {
+		return (Integer) m_nodeBuffer.keySet().toArray()[m_rand.nextInt(m_nodeBuffer.size())];
+	}
+	
+	private void backtrackUnvisitedNodes() {
+		 // Backtrack to most recent unvisited node into neighbors
+		Node nextBranchNode = null;
+		do {
+			nextBranchNode = m_visitedNodes.pop();
+			m_nodeBuffer = getNextUnvisitedNeighbors(nextBranchNode);				
+		} while(m_nodeBuffer.isEmpty() && !m_visitedNodes.isEmpty()); 
+		
+		if (nextBranchNode != null) {
+			m_currentNode = nextBranchNode;
+		}
+	}
 	
 	// The next 2 functions wouldn't be necessary if we were 
 	// using real neighbors (since we need to move by 2)	
