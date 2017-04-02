@@ -20,7 +20,7 @@ public class RenderableComponent{
 				a_Y*Settings.NODE_HEIGHT_PX);		
 	}
 	
-	public void updateColorFromType(Type a_type) {
+	public void updateFromType(Type a_type) {
 		switch(a_type) {
 			case FLOOR:
 				m_fillColor = Color.GRAY;

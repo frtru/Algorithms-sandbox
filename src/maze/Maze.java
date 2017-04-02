@@ -29,13 +29,7 @@ public enum Maze {
 		m_width = a_width; 
 		m_height = a_height;
 	}
-	
-	public void undoVisitedNodes() {
-		for (Node n: m_grid) {
-			n.setUnvisited();
-		}
-	}
-	
+
 	public void newGrid() {
 		m_grid = new Node[m_width*m_height];
 		
