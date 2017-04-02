@@ -68,6 +68,8 @@ public class DFS extends MazeGenerator{
 			}
 		}
 		setStartAndEndNodes();
+		m_visitedNodes.clear();
+		m_nodeBuffer.clear();
 	}
 
 	private boolean isVisited(Node node) { return (node.getType() == Type.FLOOR); }

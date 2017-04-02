@@ -15,7 +15,7 @@ public class AStar extends Algo{
 
 	@Override
 	public void init() {
-		m_heuristicWeight = 2;
+		m_heuristicWeight = 1;
 		m_distanceBetweenNeighbors = 1;
 		m_currentNode = Maze.INSTANCE.getStartNode();
 		
@@ -72,6 +72,9 @@ public class AStar extends Algo{
 		for (Node solutionNode : totalPath) {
 			solutionNode.setCheckpoint(Checkpoint.SOLUTION);
 		}
+		m_cameFrom.clear();
+		m_closedSet.clear();
+		m_openSet.clear();
 	}
 	
 	private Node getBestNode() {
