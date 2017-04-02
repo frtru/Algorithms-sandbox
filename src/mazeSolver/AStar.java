@@ -15,7 +15,7 @@ public class AStar extends Algo{
 
 	@Override
 	public void init() {
-		m_heuristicWeight = 1;
+		m_heuristicWeight = 5;
 		m_distanceBetweenNeighbors = 1;
 		m_currentNode = Maze.INSTANCE.getStartNode();
 		

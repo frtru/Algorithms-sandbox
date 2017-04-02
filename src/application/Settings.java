@@ -11,8 +11,8 @@ public class Settings {
 	public static final int MAZE_WIDTH 		= 150;
 	public static final int MAZE_HEIGHT		= 150;
 	
-	public static final int NODE_WIDTH_PX  	= 2;
-	public static final int NODE_HEIGHT_PX 	= 2;
+	public static final int NODE_WIDTH_PX  	= 5;
+	public static final int NODE_HEIGHT_PX 	= 5;
 	
 	public static final boolean FAST_FORWARD_GEN = true;
 	
