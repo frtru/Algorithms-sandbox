@@ -8,7 +8,6 @@ import java.util.Stack;
 import maze.Node;
 import maze.Maze;
 import maze.entity.Type;
-import maze.entity.Checkpoint;
 
 public class DFS extends MazeGenerator{
  
@@ -65,37 +64,6 @@ public class DFS extends MazeGenerator{
 		setStartAndEndNodes();
 	}
 
-	@Override
-	protected void setStartAndEndNodes() {
-		// Over complicated way but safe for any dimension
-		int width = Maze.INSTANCE.getWidth(),
-			height= Maze.INSTANCE.getHeight(),
-			minimalPathLength = 2; // There's at least 1 node which is a floor one on a 2x2 grid space
-	
-		boolean startNodeFound = false,
-				endNodeFound = false;
-		for (int i=0; i < minimalPathLength && !(startNodeFound && endNodeFound); ++i) {
-			for (int j=0; j < minimalPathLength && !(startNodeFound && endNodeFound); ++j) {
-				if (!startNodeFound) {
-					Node potentialStartingNode = Maze.INSTANCE.getNodeAt(i, j);
-					if (potentialStartingNode.getType() == Type.FLOOR) {
-						potentialStartingNode.setCheckpoint(Checkpoint.START);
-						Maze.INSTANCE.setStartNode(potentialStartingNode);
-						startNodeFound = true;
-					}
-				}
-				if (!endNodeFound) {
-					Node potentialEndingNode = Maze.INSTANCE.getNodeAt((width-1)-i, (height-1)-j);
-					if (potentialEndingNode.getType() == Type.FLOOR) {
-						potentialEndingNode.setCheckpoint(Checkpoint.END);
-						Maze.INSTANCE.setEndNode(potentialEndingNode);
-						endNodeFound = true;
-					}		
-				}
-			}
-		}
-	}
-	
 	private boolean isVisited(Node node) { return (node.getType() == Type.FLOOR); }
 	
 	private Integer getRandomDirection() {
@@ -114,18 +82,6 @@ public class DFS extends MazeGenerator{
 			m_currentNode = nextBranchNode;
 		}
 	}
-	
-	// The next 2 functions wouldn't be necessary if we were 
-	// using real neighbors (since we need to move by 2)	
-	/*private HashMap<Integer,Node> getUnvisitedIntermediateNeighbors(Node n) {
-		HashMap<Integer,Node> unvisitedNeighbors = new HashMap<Integer,Node>();
-		for (HashMap.Entry<Integer,Node> entry: n.getNeighbors().entrySet()) {
-			if (!isVisited(entry.getValue())) {
-				unvisitedNeighbors.put(entry.getKey(), entry.getValue());
-			}
-		}
-		return unvisitedNeighbors;
-	}*/
 
 	private  HashMap<Integer,Node> getNextUnvisitedNeighbors(Node n) {
 		HashMap<Integer,Node> nextUnvisitedNeighbors = new HashMap<Integer,Node>();

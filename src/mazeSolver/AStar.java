@@ -29,10 +29,10 @@ public class AStar extends Algo{
 	@Override
 	public boolean next() {
 		// TODO Auto-generated method stub
-		Maze.INSTANCE.getNodeAt(
+/*		Maze.INSTANCE.getNodeAt(
 				m_rand.nextInt(m_mazeHeight), 
 				m_rand.nextInt(m_mazeWidth)).setCheckpoint(Checkpoint.POTENTIAL_SOLUTION);
-		return true;
+*/		return true;
 	}
 
 	@Override
