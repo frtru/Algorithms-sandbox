@@ -30,6 +30,9 @@ public final class Renderer {
             			m_algo = m_currentStory.second;
             			start();
             		}            		
+            		if (m_algo.compareTo(m_currentStory.second)) {
+            			displayFinalSolution();
+            		}
             		// Otherwise story is finished
             	}
             }
@@ -70,6 +73,17 @@ public final class Renderer {
 	public void pause() {
 		m_renderingLoop.stop();
 		m_isRendering.set(false);
+	}
+	
+	private void displayFinalSolution() {
+		// One last rendering iteration to solution colors
+		for (int i = 0 ; i < Maze.INSTANCE.getWidth(); ++i) {
+			for (int j = 0 ; j < Maze.INSTANCE.getHeight(); ++j) {
+				Maze.INSTANCE
+					.getNodeAt(i,j)
+					.update(m_context);
+			}		
+		}
 	}
 
 	private Algo					m_algo;

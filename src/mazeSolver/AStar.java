@@ -1,39 +1,90 @@
 package mazeSolver;
 
-//import java.util.HashMap;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Random;
-//import java.util.Stack;
 
 //Application packages imports
 import core.Algo;
 import core.utils.Position;
 import maze.Maze;
 import maze.Node;
-import maze.entity.Type;
+import maze.entity.Checkpoint;
 
 public class AStar extends Algo{
 
 	@Override
 	public void init() {
 		m_heuristicWeight = 2;
+		m_distanceBetweenNeighbors = 1;
 		m_currentNode = Maze.INSTANCE.getStartNode();
+		
+		m_openSet.add(m_currentNode);
+		m_cameFrom.put(m_currentNode,null);
 	}
 
 	@Override
 	public boolean next() {
-		// TODO Auto-generated method stub
-/*		Maze.INSTANCE.getNodeAt(
-				m_rand.nextInt(m_mazeHeight), 
-				m_rand.nextInt(m_mazeWidth)).setCheckpoint(Checkpoint.POTENTIAL_SOLUTION);
-				
-*/		
-		return true;
+		if (!m_openSet.isEmpty()) {	
+			m_currentNode = getBestNode();
+			if (m_currentNode == Maze.INSTANCE.getEndNode()) {
+				return false;
+			}
+			
+			m_openSet.remove(m_currentNode);
+			m_closedSet.add(m_currentNode);
+			m_currentNode.setCheckpoint(Checkpoint.POTENTIAL_SOLUTION);
+			
+			for (Node neighbor: m_currentNode.getFloorNeighbors()) {
+				if (m_closedSet.contains(neighbor)) {
+					continue;
+				}
+				if (!m_openSet.contains(neighbor)) {
+					m_openSet.add(neighbor);
+				}
+				// Determine if the neighbor leads to a better path
+				//Integer gScore = getGScore(m_currentNode) + m_distanceBetweenNeighbors;
+				//if (gScore >= getGScore(neighbor)) {
+				//	continue; // It's not a better path
+				//}
+				// Best path until now
+				m_cameFrom.put(neighbor, m_currentNode);
+			}
+			return true;
+		}		
+		// TODO: Print failure, A star failed to find path
+		return false;
 	}
 
 	@Override
 	public void end() {
-		// TODO Auto-generated method stub
+		// Print solution by reconstructing path
+		HashSet<Node>	totalPath = new HashSet<Node>();
+		totalPath.add(m_currentNode);
+		Node n = m_cameFrom.get(m_currentNode);
+
+		while (n != null) {
+			m_currentNode = n;
+			n = m_cameFrom.get(m_currentNode);
+			totalPath.add(m_currentNode);
+		}
 		
+		for (Node solutionNode : totalPath) {
+			solutionNode.setCheckpoint(Checkpoint.SOLUTION);
+		}
+	}
+	
+	private Node getBestNode() {
+		Integer lowestFValue = Integer.MAX_VALUE;
+		Node	bestNode = null;
+		for (Node n: m_openSet) {
+			Integer fScore = getFScore(n);
+			if (getFScore(n) < lowestFValue) {
+				bestNode = n;
+				lowestFValue = fScore;
+			}
+		}
+		return bestNode;
 	}
 	
 	private int	getFScore(Node n) {
@@ -60,8 +111,12 @@ public class AStar extends Algo{
 		return Math.abs(p1.getX() - p2.getX()) + Math.abs(p1.getY() - p2.getY());
 	}
 	
-	Random 		m_rand 					= new Random();
-	Node 		m_currentNode 			= null;
+	Random 					m_rand 			= new Random();
+	Node 					m_currentNode 	= null;
+	HashMap<Node,Node> 		m_cameFrom		= new HashMap<Node, Node>();
+	HashSet<Node>			m_closedSet		= new HashSet<Node>();
+	HashSet<Node> 			m_openSet		= new HashSet<Node>();
 
-	int 		m_heuristicWeight; 
+	int 		m_heuristicWeight;
+	int			m_distanceBetweenNeighbors;
 }

@@ -50,7 +50,7 @@ public class RenderableComponent{
 				m_fillColor = Color.BLUE;
 				break;
 			case SOLUTION:
-				m_fillColor = Color.AQUAMARINE;
+				m_fillColor = Color.CHARTREUSE;
 				break;				
 			default:
 				m_fillColor = Color.BLUEVIOLET; // For debugging purposes
