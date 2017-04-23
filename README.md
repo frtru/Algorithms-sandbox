@@ -1,4 +1,4 @@
-# MazeSandbox
+# Algorithms-sandbox
 
 A java application created to experiment with standard algorithms. 
 
