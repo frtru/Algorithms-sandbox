@@ -10,7 +10,7 @@ As both steps are animated (and can take a long time depending on the size of th
 
 Here's a picture of what the final result looks like using the Depth-first search for generation and A* for solving the maze:
 
-Note that walls are pictured as black, floor as gray, potential solutions found by the A* algorithm are blue and final solution is green.
+Note that the start and end nodes are on the upper left corner and lower right corner respectively. Walls are pictured as black, floor as gray, and potential paths during the exploration are blue and final solution is green.
 
 
 ![alt tag](https://raw.githubusercontent.com/frtru/MazeSandbox/master/gen_dfs_sol_astar.jpg)
