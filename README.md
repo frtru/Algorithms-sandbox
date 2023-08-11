@@ -13,4 +13,4 @@ Here's a picture of what the final result looks like using the Depth-first searc
 Note that the start and end nodes are on the upper left corner and lower right corner respectively. Walls are pictured as black tiles, floor as gray, potential paths during the exploration are blue and final solution is green.
 
 
-![alt tag](https://raw.githubusercontent.com/frtru/MazeSandbox/master/gen_dfs_sol_astar.jpg)
+![alt tag](https://raw.githubusercontent.com/frtru/MazeSandbox/master/media/gen_dfs_sol_astar.jpg)
